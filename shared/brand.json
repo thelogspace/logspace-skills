@@ -1,0 +1,21 @@
+{
+  "company": "LogSpace",
+  "domain": "logspace.xyz",
+  "packagePrefix": "xyz.logspace",
+  "githubOrg": "thelogspace",
+  "website": "https://logspace.xyz",
+  "email": "thelogspace@gmail.com",
+  "youtube": "https://www.youtube.com/@logspaceapps",
+  "instagram": "https://www.instagram.com/thelogspace/",
+  "languages": ["en", "tr", "es", "pt-BR", "fr", "de", "ru", "ar", "hi", "zh-Hans", "ja", "id", "ko"],
+  "defaultLanguage": "en",
+  "rtlLanguages": ["ar"],
+  "legal": {
+    "privacyPolicyUrl": "TODO_PUBLISH_BEFORE_STORE_RELEASE",
+    "termsUrl": "TODO_PUBLISH_BEFORE_STORE_RELEASE"
+  },
+  "quality": {
+    "coverageTarget": 80,
+    "coverageBlocking": false
+  }
+}

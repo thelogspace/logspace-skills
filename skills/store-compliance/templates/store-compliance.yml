@@ -1,0 +1,38 @@
+name: store-compliance
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"   # 1st of every month
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  android-target:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare targetSdk with the latest API
+        id: check
+        run: |
+          set +e
+          out=$(scripts/check-android-target.sh); code=$?
+          echo "$out"
+          { echo "result<<EOF"; echo "$out"; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+      - name: Open an issue if behind
+        if: steps.check.outputs.code == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULT: ${{ steps.check.outputs.result }}
+        run: |
+          gh label create store-compliance --color D93F0B 2>/dev/null || true
+          if [ -z "$(gh issue list --label store-compliance --state open --json number --jq '.[0].number')" ]; then
+            gh issue create --label store-compliance \
+              --title "Store requirement: update targetSdk" \
+              --body "$RESULT
+
+          If this isn't fixed, Google Play may hide or remove the app. Run \`/logspace:store-compliance\` in Claude Code."
+          fi

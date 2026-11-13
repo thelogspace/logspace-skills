@@ -1,0 +1,15 @@
+
+# --- LogSpace common ---
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage/
+*.log
+# Signing / service secrets (keep them in CI secrets)
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+key.properties
+.logspace/logs/

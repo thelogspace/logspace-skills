@@ -1,0 +1,21 @@
+# Search filter for ripgrep-based tools (Claude Code Grep/Glob, rg). Files stay readable on purpose.
+# Unity serialized YAML: use scripts/unity-inspect.sh instead of searching it.
+*.meta
+*.unity
+*.prefab
+*.asset
+*.mat
+*.anim
+*.controller
+*.overrideController
+*.physicMaterial
+*.lighting
+*.shadergraph
+*.vfx
+*.spriteatlas
+*.spriteatlasv2
+Assets/ThirdParty/
+Assets/Plugins/
+Assets/TextMesh Pro/
+Packages/packages-lock.json
+ProjectSettings/

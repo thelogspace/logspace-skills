@@ -1,0 +1,34 @@
+{
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": { "source": "github", "repo": "DietrichGebert/ponytail" }
+    },
+    "logspace": {
+      "source": { "source": "github", "repo": "thelogspace/logspace-skills" }
+    }
+  },
+  "enabledPlugins": {
+    "ponytail@ponytail": true,
+    "logspace@logspace": true
+  },
+  "permissions": {
+    "deny": [
+      "Read(./Library/**)",
+      "Read(./Temp/**)",
+      "Read(./Logs/**)",
+      "Read(./obj/**)",
+      "Read(./UserSettings/**)",
+      "Read(**/node_modules/**)",
+      "Read(**/.next/**)",
+      "Read(**/dist/**)",
+      "Read(**/build/**)",
+      "Read(**/.dart_tool/**)",
+      "Read(**/Pods/**)",
+      "Read(**/coverage/**)",
+      "Read(**/playwright-report/**)",
+      "Read(**/test-results/**)",
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}

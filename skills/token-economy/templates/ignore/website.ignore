@@ -1,0 +1,6 @@
+# Search filter for ripgrep-based tools (Claude Code Grep/Glob, rg). Files stay readable on purpose.
+pnpm-lock.yaml
+public/
+*.min.js
+*.map
+next-env.d.ts

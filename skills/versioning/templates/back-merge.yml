@@ -1,0 +1,23 @@
+name: back-merge main → develop
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  back-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open PR main → develop
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          gh pr create --repo "$GITHUB_REPOSITORY" --base develop --head main \
+            --title "chore: back-merge $TAG into develop" \
+            --body "Carries release $TAG back into develop." \
+          || echo "No PR needed (develop is already up to date or a PR is already open)."

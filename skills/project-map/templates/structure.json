@@ -1,0 +1,23 @@
+{
+  "$comment": "Copy the project type's block into .logspace/structure.json (without the type key).",
+  "mobile-app": {
+    "sourceRoots": ["lib/", "test/", "integration_test/"],
+    "mapMustMention": ["lib/features/*"]
+  },
+  "web-game": {
+    "sourceRoots": ["game/src/", "game/tests/", "app/lib/", "app/test/", "app/integration_test/"],
+    "mapMustMention": ["game/src/scenes/*.ts", "app/lib/features/*"]
+  },
+  "website": {
+    "sourceRoots": ["src/", "tests/"],
+    "mapMustMention": ["src/features/*"]
+  },
+  "web-3d": {
+    "sourceRoots": ["src/", "tests/"],
+    "mapMustMention": ["src/scenes/*.ts"]
+  },
+  "unity-game": {
+    "sourceRoots": ["Assets/_Project/", "Assets/Tests/"],
+    "mapMustMention": ["Assets/_Project/Scenes/*.unity", "Assets/_Project/Scripts/Runtime/*"]
+  }
+}

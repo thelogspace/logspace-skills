@@ -1,0 +1,9 @@
+# Search filter for ripgrep-based tools (Claude Code Grep/Glob, rg). Files stay readable on purpose.
+*.g.dart
+*.freezed.dart
+lib/l10n/app_localizations*.dart
+lib/firebase_options*.dart
+pubspec.lock
+ios/Runner.xcodeproj/
+ios/Podfile.lock
+android/gradle/

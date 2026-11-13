@@ -1,0 +1,50 @@
+# {{displayName}}
+
+LogSpace project. Type: **{{type}}**, platforms: **{{platforms}}**, package ID: `{{packageId}}`.
+Project settings: `.logspace/project.json`. Brand values (links, e-mail, languages) come from the `logspace` plugin; don't hardcode them.
+
+## Working rules (mandatory)
+
+1. **ponytail is always on.** Do every coding task with the smallest change that fully solves it. Run `/ponytail-review` before opening a PR.
+2. **KISS first.** Apply SOLID only for a real need (e.g. a second implementation actually exists). No speculative abstraction, factories, or interfaces with a single implementation.
+3. **Tests.** Every behavior, business rule and error case gets a test, written together with the code. A bug fix starts with a test that reproduces the bug. Coverage target {{coverageTarget}}% (advisory, doesn't block).
+4. **Zero lint errors.** `scripts/check.sh` must pass before a commit; don't disable lint rules.
+5. **Stack best practices.** Before coding, follow the `best-practices.md` and `pitfalls.md` references in the `logspace:{{stackSkill}}` skill.
+6. **No hardcoded text.** Every user-visible string goes into the localization files for all 13 languages (`logspace:i18n`). Arabic is RTL; test the layout.
+7. **Secrets don't go into the repo.** Use `.env` / `--dart-define` / CI secrets; keep `.env.example` up to date.
+8. **Folder layout and map.** Files go where `.logspace/structure.json` allows; a new feature / scene / service updates `docs/MAP.md` in the same PR (`logspace:project-map`).
+9. **Performance and memory.** Respect `.logspace/budgets.json`; every hot path has a no-allocation / no-growth test; every leak fix starts with a failing leak test (`logspace:perf`).
+10. **Games:** levels, maps and economy are data, validated by tests; `docs/game/levels.md` is generated, never hand-edited (`logspace:game-design`).
+
+11. **Token economy** (`logspace:token-economy`): start from `docs/MAP.md`; grep first, then read with offset/limit; never read Unity `.unity`/`.prefab`/`.asset` whole (use `scripts/unity-inspect.sh`); run `scripts/check.sh` (quiet) instead of raw test/build commands and open only the failing part of `.logspace/logs/`; add strings with `scripts/i18n-add.sh`; one task per session.
+
+**Precedence when guidance conflicts:** these rules > the stack skill's `best-practices.md` / `pitfalls.md` > third-party skills in `.claude/skills/` (see `THIRD_PARTY.md`). Don't edit vendored skills; update them with `logspace:third-party`.
+
+## Git flow
+
+- Branches: `feature/<short-name>`, `fix/<short-name>` → PR to `develop`. Releases: `develop` → PR to `main`. Urgent fixes: `hotfix/*` → `main`.
+- Commit messages: Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`, `perf:`). Versions and the CHANGELOG are generated from them automatically; don't edit them by hand.
+- Merging: feature → develop is a **squash**; develop → main and the back-merge are a **merge commit**.
+- Don't push directly to `main` or `develop`.
+
+## Skills to use
+
+| When | Skill |
+|---|---|
+| Every coding task | `ponytail`, `logspace:{{stackSkill}}` |
+| New screen / text | `logspace:i18n` |
+| Ads, purchases, consent | `logspace:monetization` |
+| Analytics events, crash reporting | `logspace:firebase` |
+| Slow, stutter, memory, app size | `logspace:perf` |
+| New feature / scene / folder | `logspace:project-map` |
+| Level, map, difficulty, economy (games) | `logspace:game-design` |
+| Before release | `logspace:store-compliance`, then `logspace:versioning` (release) |
+| PR review | `ponytail-review` |
+| Periodic / version warning / before release | `logspace:audit` |
+
+Continuous supervision: the `logspace` plugin's hooks are active in every session (rules reminder, dangerous git commands blocked, format+lint after edits, `check.sh` when finishing). `scripts/guard.sh` checks the standard in every `check.sh` and in CI.
+
+## Commands
+
+- Full check (lint + tests): `scripts/check.sh`
+- First setup after a clone: `scripts/setup.sh`

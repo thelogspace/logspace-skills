@@ -1,0 +1,85 @@
+{
+  "$comment": "Third-party skills added to LogSpace projects. Official vendors install as plugins (they track the latest version); community skills are pinned to a SHA and vendored into the project (.claude/skills/), and updates are reviewed via logspace:audit. Order of precedence: LogSpace rules > stack best-practices > these skills. Reviewed on 2026-11-13: stars, license, content scan.",
+  "plugins": {
+    "dart-flutter": {
+      "marketplace": "dart-flutter",
+      "repo": "flutter/agent-plugins",
+      "plugin": "dart-flutter@dart-flutter",
+      "owner": "Dart and Flutter team (official)",
+      "license": "BSD-3-Clause",
+      "stars": 3178,
+      "note": "Flutter/Dart skills + Dart MCP server (needs dart on PATH). Its architecture skill recommends layers: our KISS rule takes precedence.",
+      "types": ["mobile-app", "web-game", "web-3d+mobile"]
+    }
+  },
+  "vendored": {
+    "gamedev": {
+      "repo": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sha": "c6ca6c41c839b68319ffc08430b99ab768debc32",
+      "license": "Apache-2.0",
+      "stars": 8738,
+      "skills": {
+        "unity-game": [
+          "skills/unity/unity-csharp-scripting",
+          "skills/unity/unity-scriptableobjects",
+          "skills/unity/unity-input-system",
+          "skills/unity/unity-physics",
+          "skills/unity/unity-build-size",
+          "skills/unity/unity-build-pipeline",
+          "skills/disciplines/performance-optimization",
+          "skills/disciplines/game-feel",
+          "skills/disciplines/level-design",
+          "skills/disciplines/save-systems",
+          "skills/disciplines/game-ui-ux"
+        ],
+        "web-game": [
+          "skills/web-engines/phaser-core",
+          "skills/web-engines/phaser-arcade-physics",
+          "skills/disciplines/game-feel",
+          "skills/disciplines/level-design",
+          "skills/disciplines/save-systems",
+          "skills/disciplines/game-ui-ux"
+        ]
+      }
+    },
+    "threejs": {
+      "repo": "CloudAI-X/threejs-skills",
+      "sha": "0e181866f095b5f06d005133876e926515390d95",
+      "license": "MIT",
+      "stars": 4172,
+      "skills": {
+        "web-3d": [
+          "skills/threejs-fundamentals",
+          "skills/threejs-performance",
+          "skills/threejs-loaders",
+          "skills/threejs-asset-pipeline",
+          "skills/threejs-materials",
+          "skills/threejs-lighting",
+          "skills/threejs-textures",
+          "skills/threejs-interaction"
+        ]
+      }
+    },
+    "vercel": {
+      "repo": "vercel-labs/agent-skills",
+      "sha": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "license": "MIT (per-skill frontmatter; no LICENSE at repo root)",
+      "stars": 34014,
+      "skills": {
+        "website": [
+          "skills/react-best-practices",
+          "skills/composition-patterns"
+        ]
+      }
+    }
+  },
+  "optionalMcp": {
+    "unity-mcp": {
+      "repo": "CoplayDev/unity-mcp",
+      "license": "MIT",
+      "stars": 15953,
+      "note": "Lets Claude drive the Unity Editor (scene, prefab, console, tests). Asked at init; needs a Unity package + uv. Pin it to a release tag.",
+      "types": ["unity-game"]
+    }
+  }
+}

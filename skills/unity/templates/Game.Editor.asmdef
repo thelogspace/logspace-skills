@@ -1,0 +1,9 @@
+{
+  "name": "Game.Editor",
+  "rootNamespace": "LogSpace.Editor",
+  "references": [],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false
+}

@@ -1,0 +1,11 @@
+# Search filter for ripgrep-based tools (Claude Code Grep/Glob, rg). Files stay readable on purpose.
+*.g.dart
+app/lib/l10n/app_localizations*.dart
+app/lib/firebase_options*.dart
+app/pubspec.lock
+app/ios/Runner.xcodeproj/
+game/pnpm-lock.yaml
+game/public/maps/
+game/public/assets/
+*.min.js
+*.map

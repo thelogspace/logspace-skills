@@ -1,0 +1,46 @@
+{
+  "$comment": "Copy the project type's block to .logspace/budgets.json. Leak budgets block (tests); the rest advise. Measured on a low-end real device, release/profile build.",
+  "mobile-app": {
+    "coldStartMs": 2000,
+    "frameBuildMs": 8,
+    "frameRasterMs": 8,
+    "jankFramesPct": 1,
+    "memoryMB": 200,
+    "downloadSizeMB": 30
+  },
+  "unity-game": {
+    "targetFps": 60,
+    "frameMs": 16.6,
+    "gcAllocPerFrameBytes": 0,
+    "drawCalls": 100,
+    "trianglesK": 300,
+    "memoryMB": 450,
+    "downloadSizeMB": 150,
+    "sceneLeakTolerance": 0
+  },
+  "web-game": {
+    "targetFps": 60,
+    "initialJsKB": 1500,
+    "initialAssetsMB": 8,
+    "heapGrowthMBAfter5Cycles": 3,
+    "downloadSizeMB": 40
+  },
+  "web-3d": {
+    "targetFps": 60,
+    "drawCalls": 100,
+    "trianglesK": 500,
+    "textureMemoryMB": 256,
+    "initialJsKB": 700,
+    "heapGrowthMBAfter5Cycles": 3,
+    "rendererMemoryLeakTolerance": 0
+  },
+  "website": {
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "inpMs": 200,
+    "tbtMs": 200,
+    "firstLoadJsKB": 170,
+    "lighthousePerformance": 0.9,
+    "lighthouseAccessibility": 0.95
+  }
+}

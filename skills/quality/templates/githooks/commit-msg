@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Conventional Commits: type(scope)!: description
+set -euo pipefail
+msg=$(head -n1 "$1")
+pattern='^(feat|fix|chore|docs|test|refactor|perf|build|ci|style|revert)(\([a-z0-9-]+\))?!?: .{1,100}$'
+if [[ "$msg" =~ ^(Merge|Revert) ]] || [[ "$msg" =~ $pattern ]]; then
+  exit 0
+fi
+echo "✗ commit message doesn't match Conventional Commits:"
+echo "  \"$msg\""
+echo "  e.g.: feat(auth): add google sign-in"
+exit 1

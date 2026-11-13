@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+scripts/format.sh --check || { echo "✗ unformatted files found: run scripts/format.sh"; exit 1; }
+scripts/lint.sh || { echo "✗ lint errors found"; exit 1; }

@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { package_json_file: game/package.json }
+      - uses: actions/setup-node@v4
+        with: { node-version: lts/*, cache: pnpm, cache-dependency-path: game/pnpm-lock.yaml }
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - run: scripts/build-game.sh
+      - run: (cd app && flutter pub get)
+      - run: scripts/check.sh
+      - name: E2E smoke (Playwright)
+        run: |
+          pnpm --dir game exec playwright install --with-deps chromium
+          pnpm --dir game exec playwright test
+      - name: Coverage summary (advisory)
+        if: always()
+        run: |
+          echo "Line coverage (lower one): $(cat coverage/percent.txt 2>/dev/null || echo n/a)% (target 80%, advisory)" >> "$GITHUB_STEP_SUMMARY"

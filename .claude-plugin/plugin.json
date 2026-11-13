@@ -1,0 +1,9 @@
+{
+  "name": "logspace",
+  "version": "0.1.0",
+  "description": "Starts LogSpace projects (Unity, Flutter, Phaser web game, Next.js, Three.js) from a verified skeleton. Sets up versioning, quality gates, 13 languages, an About screen, Firebase, monetization and store compliance.",
+  "author": { "name": "LogSpace", "email": "thelogspace@gmail.com" },
+  "homepage": "https://logspace.xyz",
+  "license": "MIT",
+  "repository": "https://github.com/thelogspace/logspace-skills"
+}

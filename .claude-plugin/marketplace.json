@@ -1,0 +1,15 @@
+{
+  "name": "logspace",
+  "owner": {
+    "name": "LogSpace",
+    "email": "thelogspace@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "logspace",
+      "source": "./",
+      "description": "LogSpace application starter and quality skill set"
+    }
+  ],
+  "description": "LogSpace application starter and quality skill set"
+}

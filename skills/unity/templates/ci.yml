@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: true }
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: "8.x" }
+      - run: dotnet tool restore
+      - run: scripts/format.sh --check
+      - run: scripts/guard.sh
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-
+      # Compile (analyzers + -warnaserror) and EditMode + PlayMode tests
+      - uses: game-ci/unity-test-runner@v4
+        id: tests
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          testMode: all
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          coverageOptions: "generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+Game.*"
+      - name: Coverage summary (advisory)
+        if: always()
+        run: |
+          pct=$(grep -rho '<Linecoverage>[0-9.]*' CodeCoverage 2>/dev/null | grep -o '[0-9.]*$' | head -n1)
+          echo "Line coverage: ${pct:-n/a}% (target 80%, advisory)" >> "$GITHUB_STEP_SUMMARY"
