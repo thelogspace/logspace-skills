@@ -18,6 +18,11 @@ jq -e . >/dev/null <<<"$json" || { echo "✗ translations are not valid JSON"; e
 
 desc=$(jq -r '."@description" // empty' <<<"$json")
 locale_of() { local b; b=$(basename "$1"); b=${b%.*}; b=${b#app_}; echo "${b//_/-}"; }   # app_pt_BR.arb → pt-BR
+# A base-language file (app_pt.arb, app_zh.arb, required by Flutter gen-l10n) takes its
+# regional translation (pt-BR, zh-Hans) when the json has no exact entry for it.
+value_for() {
+  jq -r --arg l "$1" '.[$l] // ([to_entries[] | select(.key | startswith($l + "-")) | .value][0]) // empty' <<<"$json"
+}
 shopt -s nullglob
 files=("$dir"/*.arb "$dir"/*.json)
 
@@ -25,14 +30,14 @@ files=("$dir"/*.arb "$dir"/*.json)
 missing=""
 for f in "${files[@]}"; do
   loc=$(locale_of "$f")
-  [[ -n "$(jq -r --arg l "$loc" '.[$l] // empty' <<<"$json")" ]] || missing="$missing $loc"
+  [[ -n "$(value_for "$loc")" ]] || missing="$missing $loc"
 done
 [[ -n "$missing" ]] && { echo "✗ missing translations for:$missing (no file was changed)"; exit 1; }
 
 updated=0
 for f in "${files[@]}"; do
   loc=$(locale_of "$f")
-  val=$(jq -r --arg l "$loc" '.[$l]' <<<"$json")
+  val=$(value_for "$loc")
   tmp=$(mktemp)
   if [[ "$f" == *.arb ]]; then
     jq --indent 2 --arg k "$key" --arg v "$val" --arg d "$desc" --arg l "$loc" \

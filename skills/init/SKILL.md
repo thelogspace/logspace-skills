@@ -22,6 +22,12 @@ Check the tools below. If one is missing, give the user the install command, and
 | Unity Hub / Unity 6 LTS | `ls /Applications/Unity/Hub/Editor` | Unity |
 | Flutter | `flutter --version` | Flutter, Phaser (shell) |
 | Node + pnpm | `node -v`, `pnpm -v` | Phaser, Next.js, Three.js |
+| Android SDK (+ an emulator) | `ls ~/Library/Android/sdk/platforms` | mobile (the latest platform = the target SDK candidate; the emulator verifies the build) |
+
+Notes from real runs:
+- Node 25+ no longer bundles corepack: install pnpm with `brew install pnpm` (ask first; it's a global tool).
+- Without `gh`, the scaffold can still be completed locally (git, main/develop, tag); only the remote repo step waits. Don't call the unauthenticated GitHub REST API in loops (60 requests/hour).
+- In zsh, `for c in $list` doesn't split words: run multi-command checks with `bash -c '...'`.
 
 ## 1. Questions
 
@@ -105,7 +111,7 @@ From then on, the plugin's hooks (`hooks/hooks.json`) supervise the project in e
 
 ## 5. Write CLAUDE.md
 
-Fill `../../shared/templates/CLAUDE.md.tmpl` from `project.json` and write it to the project root as `CLAUDE.md`. Commit: `docs: add CLAUDE.md [skip ci]`. This is the last commit before the first push; `[skip ci]` keeps release-please from opening a release PR for the skeleton.
+Fill `../../shared/templates/CLAUDE.md.tmpl` from `project.json` (`{{stackSkills}}` lists every stack skill in backticks, e.g. `` `logspace:web-game` (game) and `logspace:flutter` (shell) ``) and write it to the project root as `CLAUDE.md`. Commit: `docs: add CLAUDE.md [skip ci]`. This is the last commit before the first push; `[skip ci]` keeps release-please from opening a release PR for the skeleton.
 
 ## 6. Publish
 

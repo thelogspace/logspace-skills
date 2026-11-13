@@ -18,7 +18,7 @@ pnpm add -D @types/three vitest @vitest/coverage-v8 eslint @eslint/js typescript
 pnpm add -D @gltf-transform/cli               # asset optimization
 ```
 
-`vite.config.ts`: `base: './'`, `build.target: 'es2020'`. TS strict + `noUncheckedIndexedAccess`.
+`vite.config.ts`: `base: './'`, `build.target: 'es2022'` (top-level await). TS strict + `noUncheckedIndexedAccess`. Pin `typescript@^6` while typescript-eslint doesn't support TypeScript 7 (the Vite template installs 7); details and the ESLint config: `logspace:web-game` section 2.
 
 ## 2. Structure
 

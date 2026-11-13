@@ -46,6 +46,7 @@ if [[ -f .logspace/structure.json ]]; then
   stray=""
   while IFS= read -r f; do
     [[ "$f" == */* ]] || continue            # root-level config files are allowed
+    [[ "$(basename "$f")" == *.config.* ]] && continue   # package-level config (game/vite.config.ts)
     ok=0; for r in $roots; do [[ "$f" == "$r"* ]] && { ok=1; break; }; done
     (( ok )) || stray="$stray$f"$'\n'
   done < "$list"

@@ -18,7 +18,7 @@ pnpm add -D vitest @vitest/coverage-v8 @vitejs/plugin-react jsdom @testing-libra
 
 `create-next-app`'s flags can change between versions; check them with `--help`, and if it asks interactively, choose: TypeScript, ESLint, Tailwind, `src/`, App Router, alias `@/*`.
 
-`tsconfig.json`: `"strict": true`, `"noUncheckedIndexedAccess": true`. ESLint: the flat config (`eslint.config.mjs`) created by create-next-app + `jsx-a11y` strict rules; run with `eslint .`, not `next lint`.
+`tsconfig.json`: `"strict": true`, `"noUncheckedIndexedAccess": true`. If the installed TypeScript major is newer than what typescript-eslint supports (it refuses to run and says so), pin the supported major (`pnpm add -D typescript@^6` as of 2026-11). ESLint: the flat config (`eslint.config.mjs`) created by create-next-app + `jsx-a11y` strict rules; run with `eslint .`, not `next lint`.
 
 ## 2. Structure
 

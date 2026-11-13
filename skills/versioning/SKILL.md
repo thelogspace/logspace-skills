@@ -28,7 +28,8 @@ Take the current template from GitHub (it doesn't go stale), then add LogSpace's
 | website, web-3d, web-game (web part) | `Node` |
 
 ```bash
-gh api gitignore/templates/Unity --jq .source > .gitignore
+# Raw file from github/gitignore: no gh, no API rate limit (Unity, Dart, Node)
+curl -fsSL https://raw.githubusercontent.com/github/gitignore/main/Unity.gitignore > .gitignore
 cat templates/gitignore-common >> .gitignore
 ```
 
@@ -47,7 +48,7 @@ Copy from `templates/`:
 | `pull_request_template.md` | `.github/pull_request_template.md` | |
 | `dependabot.yml` | `.github/dependabot.yml` | keep only the project's ecosystems (`pub`, `npm`, `nuget`, `github-actions`) |
 
-Web-game (Flutter shell + Phaser) monorepo: two packages in `release-please-config.json` (`app/` dart, `game/` node). Under the `packages` key, list two entries with their paths.
+Web-game (Flutter shell + Phaser) monorepo: **one** version for the whole product. Don't split it into two packages: release-please only counts commits inside a package's folder, so `game/` changes would never bump the app version. Use `"release-type": "simple"` for `"."` (writes `version.txt`) with `"extra-files": [{"type": "yaml", "path": "app/pubspec.yaml", "jsonpath": "$.version"}]`, and set `"private": true` in `game/package.json`.
 
 ## 3. Repo setup (end of the init flow)
 

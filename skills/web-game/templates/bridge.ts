@@ -1,33 +1,26 @@
-// Game ↔ Flutter shell bridge. Works as a no-op in the browser (pnpm dev, tests).
+// Game ↔ Flutter shell bridge (logspace:web-game). The shell uses the official webview_flutter:
+// game → shell through the JavaScript channel window.logspace.postMessage(json),
+// shell → game through window.logspaceBridge.receive(message). A no-op in the browser.
 
-export type ToHost =
-  | { type: 'ready' }
-  | { type: 'analytics'; name: string; params?: Record<string, string | number> }
-  | { type: 'showRewarded'; placement: string }
-  | { type: 'showInterstitial'; placement: string }
-  | { type: 'haptic'; kind: 'light' | 'medium' | 'heavy' };
+export type ToHost = { type: 'ready' } | { type: 'haptic'; kind: 'light' | 'medium' | 'heavy' };
 
-export type FromHost =
-  | { type: 'setLocale'; locale: string }
-  | { type: 'pause' }
-  | { type: 'resume' }
-  | { type: 'rewardResult'; placement: string; rewarded: boolean };
+export type FromHost = { type: 'setLocale'; locale: string } | { type: 'pause' } | { type: 'resume' };
 
-type HostWindow = Window & {
-  flutter_inappwebview?: { callHandler(name: string, ...args: unknown[]): Promise<unknown> };
+type HostWindow = {
+  logspace?: { postMessage(message: string): void };
   logspaceBridge?: { receive(message: FromHost): void };
 };
 
-const HANDLER = 'logspace';
 const listeners = new Set<(message: FromHost) => void>();
 
-export function isHosted(w: HostWindow = window): boolean {
-  return typeof w.flutter_inappwebview?.callHandler === 'function';
+export function isHosted(w: HostWindow = window as HostWindow): boolean {
+  return typeof w.logspace?.postMessage === 'function';
 }
 
-export function send(message: ToHost, w: HostWindow = window): void {
-  if (!isHosted(w)) return;
-  void w.flutter_inappwebview!.callHandler(HANDLER, JSON.stringify(message));
+export function send(message: ToHost, w: HostWindow = window as HostWindow): void {
+  const channel = w.logspace;
+  if (typeof channel?.postMessage !== 'function') return;
+  channel.postMessage(JSON.stringify(message));
 }
 
 export function onMessage(listener: (message: FromHost) => void): () => void {
@@ -35,7 +28,7 @@ export function onMessage(listener: (message: FromHost) => void): () => void {
   return () => listeners.delete(listener);
 }
 
-export function install(w: HostWindow = window): void {
+export function install(w: HostWindow = window as HostWindow): void {
   w.logspaceBridge = {
     receive(message) {
       for (const l of listeners) l(message);

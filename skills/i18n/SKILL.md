@@ -20,6 +20,8 @@ In the web-game, the Phaser side has its own JSON; the Flutter shell passes the 
 
 Locale codes: Flutter ARB uses `pt_BR`, `zh_Hans` (in the `zh_Hans` file, `@@locale: "zh_Hans"`); web uses `pt-BR`, `zh-Hans`; Unity uses `pt-BR`, `zh-Hans`. Map them per stack; the language is the same.
 
+**Flutter gen-l10n needs base-language files** for regional/script locales: add `app_pt.arb` (a copy of `app_pt_BR.arb` with `@@locale: "pt"`) and `app_zh.arb` (copy of `zh_Hans`), or `flutter gen-l10n` fails. `i18n-add.sh` fills them from the regional translation automatically.
+
 ## Behavior
 
 - On first launch, the **device language** is used; if it isn't supported, `en`.

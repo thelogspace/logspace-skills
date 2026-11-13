@@ -9,7 +9,7 @@ Project settings: `.logspace/project.json`. Brand values (links, e-mail, languag
 2. **KISS first.** Apply SOLID only for a real need (e.g. a second implementation actually exists). No speculative abstraction, factories, or interfaces with a single implementation.
 3. **Tests.** Every behavior, business rule and error case gets a test, written together with the code. A bug fix starts with a test that reproduces the bug. Coverage target {{coverageTarget}}% (advisory, doesn't block).
 4. **Zero lint errors.** `scripts/check.sh` must pass before a commit; don't disable lint rules.
-5. **Stack best practices.** Before coding, follow the `best-practices.md` and `pitfalls.md` references in the `logspace:{{stackSkill}}` skill.
+5. **Stack best practices.** Before coding, follow the `best-practices.md` and `pitfalls.md` references of the stack skills: {{stackSkills}}.
 6. **No hardcoded text.** Every user-visible string goes into the localization files for all 13 languages (`logspace:i18n`). Arabic is RTL; test the layout.
 7. **Secrets don't go into the repo.** Use `.env` / `--dart-define` / CI secrets; keep `.env.example` up to date.
 8. **Folder layout and map.** Files go where `.logspace/structure.json` allows; a new feature / scene / service updates `docs/MAP.md` in the same PR (`logspace:project-map`).
@@ -31,7 +31,7 @@ Project settings: `.logspace/project.json`. Brand values (links, e-mail, languag
 
 | When | Skill |
 |---|---|
-| Every coding task | `ponytail`, `logspace:{{stackSkill}}` |
+| Every coding task | `ponytail`, {{stackSkills}} |
 | New screen / text | `logspace:i18n` |
 | Ads, purchases, consent | `logspace:monetization` |
 | Analytics events, crash reporting | `logspace:firebase` |

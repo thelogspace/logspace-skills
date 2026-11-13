@@ -21,10 +21,14 @@ Display name: Android `android:label` and iOS `CFBundleDisplayName` = `displayNa
 ## 2. Packages
 
 ```bash
-flutter pub add flutter_riverpod go_router package_info_plus url_launcher shared_preferences intl \
-  flutter_localizations --sdk=flutter
-flutter pub add dev:very_good_analysis dev:mocktail dev:integration_test --sdk=flutter
+flutter pub add flutter_riverpod go_router package_info_plus url_launcher shared_preferences intl
+flutter pub add flutter_localizations --sdk=flutter
+flutter pub add dev:very_good_analysis dev:mocktail dev:leak_tracker_flutter_testing
+flutter pub add dev:integration_test --sdk=flutter
+flutter pub remove flutter_lints        # replaced by very_good_analysis
 ```
+
+After the first code is written, run `dart fix --apply` once: Dart 3.13+ with very_good_analysis flags `unnecessary_type_name_in_constructor` on every `const ClassName(...)` constructor, and the fix is automatic. Keep `dependencies` and `dev_dependencies` alphabetical (`sort_pub_dependencies`). Pages that embed web content use the official `webview_flutter` (not `flutter_inappwebview`: unmaintained, fails with the current Android Gradle Plugin).
 
 Don't pin versions; use the latest compatible ones `pub add` picks. **No extra package without a real need** (ponytail). Code generation (riverpod_generator, freezed) isn't added by default; add it only if the project actually needs it.
 

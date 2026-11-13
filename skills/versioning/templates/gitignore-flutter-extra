@@ -9,3 +9,6 @@
 **/android/local.properties
 build/
 *.g.dart.tmp
+
+# Apps commit their lock file (the GitHub Dart template ignores it for libraries)
+!pubspec.lock

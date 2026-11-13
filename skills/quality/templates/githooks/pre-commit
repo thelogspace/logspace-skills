@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# Quiet on success (AI agents pay per token); on failure only the relevant lines. Full logs: .logspace/logs/
+set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
-scripts/format.sh --check || { echo "✗ unformatted files found: run scripts/format.sh"; exit 1; }
-scripts/lint.sh || { echo "✗ lint errors found"; exit 1; }
+mkdir -p .logspace/logs
+for step in format lint; do
+  args=(); [[ $step == format ]] && args=(--check)
+  if ! scripts/$step.sh ${args[@]+"${args[@]}"} > ".logspace/logs/pre-commit-$step.log" 2>&1; then
+    echo "✗ pre-commit $step failed (full log: .logspace/logs/pre-commit-$step.log)"
+    { grep -nE -A2 'error|Error|✗|warning|\[warn\]' ".logspace/logs/pre-commit-$step.log" || tail -n 20 ".logspace/logs/pre-commit-$step.log"; } | head -n 40
+    [[ $step == format ]] && echo "  fix: scripts/format.sh"
+    exit 1
+  fi
+done

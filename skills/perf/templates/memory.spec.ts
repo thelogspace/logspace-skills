@@ -33,8 +33,9 @@ async function playCycle(page: Page): Promise<void> {
   });
 }
 
-test('memory does not grow over repeated play cycles', async ({ page, browserName }) => {
-  test.skip(browserName !== 'chromium', 'CDP heap metrics are Chromium-only');
+test.use({ browserName: 'chromium' }); // CDP heap metrics are Chromium-only: force it, never skip
+
+test('memory does not grow over repeated play cycles', async ({ page }) => {
   await page.goto('/?e2e=1');
   await page.waitForFunction(() => window.__test !== undefined);
 
