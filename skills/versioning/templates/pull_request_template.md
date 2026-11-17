@@ -4,7 +4,7 @@
 
 ## Checklist
 - [ ] `scripts/check.sh` passes (zero lint errors, all tests green)
-- [ ] A test was written for each new behavior / error case
+- [ ] A test was written for each new behavior / error case (test first; bug fixes start with a failing test)
 - [ ] `/ponytail-review` was run, findings were handled
 - [ ] New texts were added for all 13 languages (no hardcoded strings)
 - [ ] No secrets / keys were added

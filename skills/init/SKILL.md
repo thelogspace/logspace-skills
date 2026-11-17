@@ -18,6 +18,7 @@ Check the tools below. If one is missing, give the user the install command, and
 | git | `git --version` | all |
 | GitHub CLI | `gh auth status` and `gh api orgs/thelogspace --jq .login` | all (repo creation) |
 | ponytail | the check in the `logspace:quality` skill | all |
+| superpowers | the check in the `logspace:quality` skill | all |
 | git-lfs | `git lfs version` | Unity |
 | Unity Hub / Unity 6 LTS | `ls /Applications/Unity/Hub/Editor` | Unity |
 | Flutter | `flutter --version` | Flutter, Phaser (shell) |

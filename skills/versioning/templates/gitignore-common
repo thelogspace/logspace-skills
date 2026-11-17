@@ -13,3 +13,5 @@ coverage/
 *.mobileprovision
 key.properties
 .logspace/logs/
+# superpowers worktrees
+.worktrees/

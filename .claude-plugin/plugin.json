@@ -1,6 +1,6 @@
 {
   "name": "logspace",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Starts LogSpace projects (Unity, Flutter, Phaser web game, Next.js, Three.js) from a verified skeleton. Sets up versioning, quality gates, 13 languages, an About screen, Firebase, monetization and store compliance.",
   "author": {
     "name": "LogSpace",

@@ -1,6 +1,6 @@
 ---
 name: quality
-description: Sets up and enforces the quality gates of a LogSpace project. Checks that ponytail is installed and installs it if missing, writes the lint/format/test scripts contract, the guard script, the git hooks (pre-commit, commit-msg, pre-push) and the project's Claude settings; the plugin's own hooks supervise continuously. Use for "kalite", "lint", "test altyapısı", "hook", "ponytail kurulu mu", and from the init flow.
+description: Sets up and enforces the quality gates of a LogSpace project. Checks that ponytail and superpowers are installed and installs them if missing, writes the lint/format/test scripts contract, the guard script, the git hooks (pre-commit, commit-msg, pre-push) and the project's Claude settings; the plugin's own hooks supervise continuously. Use for "kalite", "lint", "test altyapısı", "hook", "ponytail kurulu mu", "superpowers", and from the init flow.
 ---
 
 # LogSpace Quality Gates
@@ -34,6 +34,22 @@ claude plugin install ponytail@ponytail
 
 If the CLI commands aren't available, ask the user to type `/plugin marketplace add DietrichGebert/ponytail` and then `/plugin install ponytail@ponytail` in the prompt.
 
+## 1a. superpowers (work discipline)
+
+[obra/superpowers](https://github.com/obra/superpowers) (MIT) supplies the *process*: brainstorm → plan → test-first → verify before claiming done. ponytail supplies the *size*: the smallest change. They're used together; how they fit LogSpace's rules is written in the project's `CLAUDE.md` ("Work discipline").
+
+```bash
+grep -qs superpowers ~/.claude/plugins/installed_plugins.json || claude plugin list 2>/dev/null | grep -qi superpowers
+```
+
+If it isn't installed (from Anthropic's official marketplace, which Claude Code already knows):
+
+```bash
+claude plugin install superpowers@claude-plugins-official
+```
+
+If the CLI command isn't available, ask the user to type `/plugin install superpowers@claude-plugins-official` in the prompt. After installing, the session must be restarted for its hooks to load.
+
 ## 2. Scripts contract
 
 Every stack skill writes these three scripts (stack-specific commands):
@@ -54,7 +70,7 @@ This skill copies the generic files on top of them:
 | `templates/githooks/*` | `.githooks/` |
 | `templates/claude-settings.json` | `.claude/settings.json` (merge if it exists) |
 
-`.claude/settings.json` lists ponytail and logspace; whoever opens the project is offered the install automatically, and the supervision hooks come with it.
+`.claude/settings.json` lists ponytail, superpowers and logspace (and sets `SUPERPOWERS_DISABLE_TELEMETRY=1`, so the brainstorming companion doesn't load a remote logo); whoever opens the project is offered the install automatically, and the supervision hooks come with it.
 
 ```bash
 chmod +x scripts/*.sh .githooks/*

@@ -16,9 +16,28 @@ Project settings: `.logspace/project.json`. Brand values (links, e-mail, languag
 9. **Performance and memory.** Respect `.logspace/budgets.json`; every hot path has a no-allocation / no-growth test; every leak fix starts with a failing leak test (`logspace:perf`).
 10. **Games:** levels, maps and economy are data, validated by tests; `docs/game/levels.md` is generated, never hand-edited (`logspace:game-design`).
 
-11. **Token economy** (`logspace:token-economy`): start from `docs/MAP.md`; grep first, then read with offset/limit; never read Unity `.unity`/`.prefab`/`.asset` whole (use `scripts/unity-inspect.sh`); run `scripts/check.sh` (quiet) instead of raw test/build commands and open only the failing part of `.logspace/logs/`; add strings with `scripts/i18n-add.sh`; one task per session.
+11. **Work discipline (superpowers).** Every task follows the superpowers process, scaled to its size (see below). Never say "done" or "fixed" without the passing `scripts/check.sh` output in front of you.
 
-**Precedence when guidance conflicts:** these rules > the stack skill's `best-practices.md` / `pitfalls.md` > third-party skills in `.claude/skills/` (see `THIRD_PARTY.md`). Don't edit vendored skills; update them with `logspace:third-party`.
+12. **Token economy** (`logspace:token-economy`): start from `docs/MAP.md`; grep first, then read with offset/limit; never read Unity `.unity`/`.prefab`/`.asset` whole (use `scripts/unity-inspect.sh`); run `scripts/check.sh` (quiet) instead of raw test/build commands and open only the failing part of `.logspace/logs/`; add strings with `scripts/i18n-add.sh`; one task per session.
+
+## Work discipline (superpowers + ponytail)
+
+superpowers decides *how* the work is done (process); ponytail decides *how much* is done (size). Scale the process to the task:
+
+| Task | Process |
+|---|---|
+| Trivial (typo, one-line config, text change) | Do it directly → `scripts/check.sh`. No brainstorm, no plan file. |
+| Bug | `systematic-debugging` (root cause first) → a failing test that reproduces it → fix → `verification-before-completion` |
+| Feature, new screen / scene / service | `brainstorming` (short; don't ask what `CLAUDE.md` and `.logspace/project.json` already answer) → `writing-plans` → `executing-plans` with `test-driven-development` → `verification-before-completion` → `/ponytail-review` → `finishing-a-development-branch` |
+
+LogSpace overrides superpowers' defaults:
+- **Plans are ponytail-sized:** fewest tasks and files that fully solve it; no speculative steps. Specs and plans stay in `docs/superpowers/` and are committed on the feature branch.
+- **Executor:** `executing-plans` (one session, one review). Use `subagent-driven-development` / `dispatching-parallel-agents` only when the user asks; they cost many more tokens.
+- **Review:** `/ponytail-review` is the review gate before the PR; it replaces `requesting-code-review`.
+- **Branches / worktrees:** `using-git-worktrees` is fine (`.worktrees/` is git-ignored), but the branch is `feature/*` or `fix/*` from `develop`.
+- **Finishing:** `finishing-a-development-branch` may only push the branch and open a PR to `develop`, keep it, or discard it. Never merge locally into `develop` or `main` (the hooks block it anyway).
+
+**Precedence when guidance conflicts:** these rules (including the overrides above) > superpowers / ponytail defaults > the stack skill's `best-practices.md` / `pitfalls.md` > third-party skills in `.claude/skills/` (see `THIRD_PARTY.md`). Don't edit vendored skills; update them with `logspace:third-party`.
 
 ## Git flow
 
@@ -31,7 +50,8 @@ Project settings: `.logspace/project.json`. Brand values (links, e-mail, languag
 
 | When | Skill |
 |---|---|
-| Every coding task | `ponytail`, {{stackSkills}} |
+| Every coding task | `ponytail`, superpowers (scaled as above), {{stackSkills}} |
+| Bug, failing test, unexpected behavior | `systematic-debugging` |
 | New screen / text | `logspace:i18n` |
 | Ads, purchases, consent | `logspace:monetization` |
 | Analytics events, crash reporting | `logspace:firebase` |

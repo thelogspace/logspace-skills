@@ -9,7 +9,11 @@
   },
   "enabledPlugins": {
     "ponytail@ponytail": true,
+    "superpowers@claude-plugins-official": true,
     "logspace@logspace": true
+  },
+  "env": {
+    "SUPERPOWERS_DISABLE_TELEMETRY": "1"
   },
   "permissions": {
     "deny": [

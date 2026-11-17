@@ -36,6 +36,7 @@ Report each step as ✓ / ⚠ / ✗. **Don't change anything until the end**; sh
 9b. **Performance:** do the leak tests exist and pass; are hot paths covered by no-allocation tests; is the last measured value of each budget in `.logspace/budgets.json` recorded? List the budgets never measured.
 9c. **Games:** do level validation tests exist (schema, reachability, difficulty curve, economy); is `docs/game/levels.md` generated and current; is the GDD current?
 9d. **Third-party skills:** for each entry in `.logspace/third-party-skills.lock.json`, is there a newer upstream SHA (`git ls-remote`)? If so, follow the update review in `logspace:third-party`. Check that the project's lock still matches the plugin catalog.
+9e. **Work discipline:** are ponytail and superpowers enabled in `.claude/settings.json`; does `CLAUDE.md` have the "Work discipline" section? Do features merged since the last audit have a plan in `docs/superpowers/` and tests that arrived with (not after) the code?
 10. **Git:** are `main`/`develop` protected, does the default branch `develop`, any stale branches.
 
 ## Ending

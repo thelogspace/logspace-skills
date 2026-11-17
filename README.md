@@ -23,7 +23,7 @@ In Claude Code, as two separate prompts:
 /plugin install logspace@logspace
 ```
 
-[ponytail](https://github.com/DietrichGebert/ponytail) is required. `logspace:init` checks whether it's installed and installs it if it's missing. Each generated project's `.claude/settings.json` lists both plugins, so every teammate who opens the project is offered the install automatically.
+[ponytail](https://github.com/DietrichGebert/ponytail) and [superpowers](https://github.com/obra/superpowers) are required. ponytail keeps every change as small as possible; superpowers adds the work discipline (brainstorm, plan, test first, verify before claiming done). `logspace:init` checks whether they're installed and installs whichever is missing. Each generated project's `.claude/settings.json` lists all three plugins, so every teammate who opens the project is offered the install automatically.
 
 **Prerequisites:** `git`, the [GitHub CLI](https://cli.github.com/) (`gh`, authenticated), `jq`, plus the toolchain for your stack (Flutter, Node + pnpm, or Unity 6 LTS with Git LFS).
 
@@ -76,7 +76,7 @@ Bounded reads (with an explicit line limit) are always allowed, so nothing is ev
 | Skill | Purpose |
 |---|---|
 | `init` | Orchestrator: asks the questions, derives identifiers, sets up each layer in order |
-| `quality` | ponytail, the scripts contract, guard, git hooks |
+| `quality` | ponytail, superpowers, the scripts contract, guard, git hooks |
 | `versioning` | Repo, `main` + `develop`, branch protection, release-please, CHANGELOG |
 | `store-compliance` | Current Google Play / App Store requirements (read from official sources every time) and a monthly CI check |
 | `i18n` | 13 languages (including Arabic RTL) and a key-parity test |
@@ -121,6 +121,7 @@ Shared values (website, e-mail, social links, languages, package prefix, GitHub 
 ## Rules (summary)
 
 - KISS first; SOLID only when there's a real need. Every task runs with ponytail.
+- Every task follows the superpowers process, scaled to its size: trivial changes go straight to `check.sh`; bugs start with root cause and a failing test; features go brainstorm → plan → test first → verify → `/ponytail-review` → PR. Where superpowers' defaults differ (executor, review, branch finishing), LogSpace's rules win.
 - Zero lint errors. Every behavior, business rule and error case gets a test. The 80% coverage target is advisory and never blocks a merge.
 - `feature/*` → `develop` (squash) → `main` (merge commit) → release-please creates the tag and CHANGELOG.
 - Package IDs follow `<packagePrefix>.<name-without-hyphens>`.

@@ -13,6 +13,9 @@ warn=()
 # ponytail
 grep -qs ponytail "$HOME/.claude/plugins/installed_plugins.json" \
   || warn+=("ponytail isn't installed: install it with the logspace:quality skill (DietrichGebert/ponytail).")
+# superpowers
+grep -qs superpowers "$HOME/.claude/plugins/installed_plugins.json" \
+  || warn+=("superpowers isn't installed: install it with the logspace:quality skill (obra/superpowers).")
 # git hooks
 if [[ -d .git && -d .githooks && "$(git config core.hooksPath)" != ".githooks" ]]; then
   git config core.hooksPath .githooks && warn+=("git hooks weren't active; core.hooksPath=.githooks was set.")
@@ -34,7 +37,9 @@ fi
 
 cat <<EOF
 LogSpace project: ${name} (${type}). The logspace plugin is supervising this project.
-Mandatory rules: work with ponytail on every task (smallest change that fully solves it); KISS first, SOLID only for a real need;
+Mandatory rules: work with ponytail on every task (smallest change that fully solves it); follow the superpowers process scaled to
+the task (bug: root cause + failing test first; feature: brainstorm, plan, test-first; never claim done without check.sh passing);
+LogSpace overrides superpowers where they differ (CLAUDE.md "Work discipline"); KISS first, SOLID only for a real need;
 zero lint errors; a test for every behavior / business rule / error case; no hardcoded user-visible text (13 languages, logspace:i18n);
 follow the best-practices.md and pitfalls.md references of the stack skill; conventional commits; work on a feature/* branch, not on main/develop.
 Details: CLAUDE.md. Format+lint runs after every edit; scripts/check.sh runs when you finish.
